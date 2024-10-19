@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dog Gallery</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Dog Gallery</h1>
+
+    <form id="createForm">
+      <input type="text" id="createTitle" placeholder="Dog Title">
+      <input type="text" id="createContent" placeholder="Dog Content">
+      <button type="submit" id="createBtn">Create</button>
+      <button id="clearBtn" style="display:none;">Clear</button>
+    </form>
+    <button id="fetchBtn">Fetch Random Dog</button>
+    <div id="dogGallery"></div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>

@@ -77,20 +77,27 @@
                     <div class="projects-container">
                         <!-- Semester One Projects -->
                         <div class="project-item">
-                            <h3>Semester One</h3>
-                            <a href="semester1.txt"></a>
-                            
+                            <h3 onclick="openFile('semester1.txt')">Semester One</h3>
                         </div>
-                      
+                        <!-- Semester Two Projects -->
                         <div class="project-item">
-                            <h3>Semester Two</h3>
-                           <a href="semester 2.txt"></a>
+                            <h3 onclick="openFile('semester2.txt')">Semester Two</h3>
                         </div>
                         <!-- Semester Three Projects -->
                         <div class="project-item">
-                            <h3>Semester Three</h3>
-                           <a href="semester 3.txt"></a>
+                            <h3 onclick="openFile('semester3.txt')">Semester Three</h3>
                         </div>
+                    </div>
+                </div>
+            </section>
+            
+            <script>
+                function openFile(fileName) {
+                    // Open the text file in a new tab
+                    window.open(fileName, '_blank');
+                }
+            </script>
+            
                       
                         
                     </div>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Category</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
+  <style>
+    body {
+      background-color: #e0e6e8;
+    }
+
+    .navbar {
+      margin-bottom: 50px;
+    }
+
+    .container {
+      background: #debead;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      width: 500px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #110f0f;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ede3e3;
+      border-radius: 5px;
+      font-size: 1em;
+    }
+
+    textarea {
+      resize: none;
+    }
+
+    button {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      background-color: #f49e58;
+      color: #ffffff;
+      border: none;
+      border-radius: 5px;
+      font-size: 1em;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #e0844b;
+    }
+
+    .sidebar {
+      height: 100vh;
+      width: 200px;
+      background-color: #98553e37;
+      color: white;
+      padding-top: 20px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      font-weight: bold;
+    }
+
+    .sidebar a {
+      color: white;
+      text-decoration: none;
+      display: block;
+      padding: 10px 15px;
+      font-size: 0.9rem;
+    }
+
+    .sidebar a:hover {
+      background-color: #f49e58;
+    }
+
+    .sidebar .logo {
+      padding: 20px;
+      text-align: center;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .content {
+      margin-left: 200px;
+      padding: 20px;
+    }
+  </style>
+</head>
+
+<body>
+
+ 
+  <div class="sidebar">
+    <div class="logo">
+      <img src="/images/ecs-new-logo (1).png" alt="Logo" style="width: 180px; height: 200%; margin-bottom: 80px;">
+    </div>
+    <a href="/admin">Products</a>
+    <a href="/admin/categories">Categories</a>
+  </div>
+
+  <!-- Main Content -->
+  <div class="content">
+   
+    <nav class="navbar navbar-expand-lg navbar-light bg-secondary shadow-sm">
+      <div class="container">
+        <a class="navbar-brand" href="/admin">Admin Panel</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link active" href="/admin/categories">All Categories</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Edit Category Form -->
+    <div class="container">
+      <h1 class="text-center my-4">Edit Category</h1>
+
+
+      <form action="/admin/categories/edit/<%= category._id %>" method="POST" enctype="multipart/form-data">
+        <div class="mb-3">
+          <label for="name" class="form-label">Category Name</label>
+          <input type="text" class="form-control" id="name" name="name" value="<%= category.name %>" required>
+        </div>
+        <div class="mb-3">
+          <label for="description" class="form-label">Description</label>
+          <textarea class="form-control" id="description" name="description" rows="4" required><%= category.description %></textarea>
+        </div>
+        <% if (category.picture) { %>
+          <div>
+            <p>Current Picture:</p>
+            <img src="/<%= category.picture %>" alt="Category Picture" width="80px">
+          </div>
+        <% } %>
+  
+      
+        <input name="file" type="file" class="form-control" />
+             <button type="submit">Update Category</button>
+      </form>
+
+      <a href="/admin/categories" class="btn btn-secondary mt-3">Back to Categories</a>
+    </div>
+  </div>
+
+ 
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

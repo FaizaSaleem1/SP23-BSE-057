@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Categories - Admin Panel</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
+  <style>
+    body {
+      background-color: #e0e6e8;
+    }
+
+    .navbar {
+      margin-bottom: 50px;
+    }
+
+
+
+
+.search-section,
+.filter-section {
+  display: flex;
+  gap: 10px; 
+}
+
+.search-section input,
+.search-section button,
+.filter-section select,
+.filter-section button {
+  border-radius: 25px; 
+  padding: 8px 15px; 
+  font-size: 0.9rem;
+}
+
+.search-section input,
+.search-section button {
+  width: 150px;
+}
+
+.filter-section select {
+  width: 160px; 
+}
+
+.search-section button,
+.filter-section button {
+  background-color: #f49e58; 
+  color: white;
+  border: none;
+  width:150px;
+}
+
+.search-section button:hover,
+.filter-section button:hover {
+  background-color: #662f02; 
+}
+
+
+.search-section input:focus,
+.filter-section select:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(252, 146, 88, 0.7);
+  width: 150px;
+}
+
+
+
+
+
+
+    .table-container {
+      background: #debead;
+      padding: 15px;
+      border-radius: 15px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .table thead {
+      background-color: #f49e58;
+      color: rgb(252, 246, 246);
+    }
+
+    .table th,
+    .table td {
+      vertical-align: -webkit-baseline-middle;
+    }
+
+    .btn-secondary,
+    .btn-primary {
+      font-size: 0.9rem;
+      padding: 10px;
+      width: 15%;
+    }
+
+    .btn-warning,
+    .btn-danger {
+      font-size: 0.9rem;
+      padding: 10px;
+      width: 30%;
+    }
+
+    .sidebar {
+      height: 100vh;
+      width: 200px;
+      background-color: #98553e37;
+      color: white;
+      padding-top: 20px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      font-weight: bold;
+    }
+
+    .sidebar a {
+      color: white;
+      text-decoration: none;
+      display: block;
+      padding: 10px 15px;
+      font-size: 0.9rem;
+    }
+
+    .sidebar a:hover {
+      background-color: #f49e58;
+    }
+
+    .sidebar .logo {
+      padding: 20px;
+      text-align: center;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .content {
+      margin-left: 200px;
+      padding: 0px;
+    }
+
+    .add-item {
+      margin-bottom: 20px;
+    }
+     /* Styling the pagination */
+  .pagination {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .pagination .page-item {
+    margin: 0 5px;
+  }
+
+  .pagination .page-item .page-link {
+    font-size: 1rem;
+    color: #495057;
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    padding: 8px 16px;
+    border-radius: 5px;
+  }
+
+  .pagination .page-item.active .page-link {
+    background-color: #f49e58;
+    color: white;
+    border-color: #f49e58;
+  }
+
+  .pagination .page-item.disabled .page-link {
+    background-color: #e0e0e0;
+    color: #999;
+    border-color: #ddd;
+  }
+
+  .pagination .page-item:hover .page-link {
+    background-color: #f49e58;
+    color: white;
+  }
+
+  .pagination .page-item:first-child .page-link {
+    border-radius: 5px 0 0 5px;
+  }
+
+  .pagination .page-item:last-child .page-link {
+    border-radius: 0 5px 5px 0;
+  }
+  </style>
+</head>
+
+<body>
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="logo">
+      <img src="/images/ecs-new-logo (1).png" alt="Logo" style="width: 180px; height: 200%; margin-bottom: 80px;">
+    </div>
+    <a href="/admin">Products</a>
+    <a href="/admin/categories">Categories</a>
+  </div>
+
+  <!-- Main Content -->
+  <div class="content">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-secondary shadow-sm">
+      <div class="container">
+        <a class="navbar-brand" href="/admin">Admin Panel</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="/admin/categories/create">Add New Category</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Dashboard Header -->
+    <div class="container">
+      <h1 class="text-center my-4">All Categories</h1>
+      <div class="d-flex justify-content-between mb-3">
+       <div><form action="/admin/categories" method="GET" class="d-flex">
+            <input type="text" name="search" class="form-control me-2" placeholder="Search categories" value="<%= typeof search !== 'undefined' ? search : '' %>">
+            <button type="submit" class="btn btn-secondary btn-lg width:150px">Search</button>
+        </form>
+        </div>
+        <div class="filter-section d-flex">
+          <form action="/admin/categories" method="GET" class="d-flex">
+            <select name="filter" class="form-control me-2" value="<%= typeof filter !== 'undefined' ? filter : '' %>">
+              <option value="name" <%= filter === 'name' ? 'selected' : '' %>>Name</option>
+              <option value="description" <%= filter === 'description' ? 'selected' : '' %>>Description</option>
+            </select>
+            <button type="submit" class="btn btn-secondary btn-md"> Filter</button>
+          </form>
+        </div>
+
+
+    </div>
+      <div class="table-container">
+
+        <!-- Categories Table -->
+        <table class="table table-striped table-hover">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Description</th>
+              <th>Picture</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if (categories.length > 0) { %>
+              <% categories.forEach((category, index) => { %>
+                <tr>
+                  <td><%= index + 1 + (page - 1) * 3 %></td> 
+                  <td><%= category.name %></td>
+                  <td><%= category.description %></td>
+                  <td><img src="/<%= category.picture %>" width="80px"/></td>
+                  <td>
+                    <a href="/admin/categories/edit/<%= category._id %>" class="btn btn-warning btn-sm">Edit</a>
+                    <form action="/admin/categories/delete/<%= category._id %>" method="POST" class="d-inline">
+                      <button class="btn btn-danger btn-sm" type="submit">Delete</button>
+                    </form>
+                  </td>
+                </tr>
+              <% }); %>
+            <% } else { %>
+              <tr>
+                <td colspan="5" class="text-center">No categories found</td>
+              </tr>
+            <% } %>
+          </tbody>
+        </table>
+
+        <!-- Pagination -->
+        <div>
+          Page <%= page %> of <%= totalPages %>
+        </div>
+        <nav aria-label="Page navigation example">
+          <ul class="pagination">
+            <li class="page-item <%= page == 1 ? 'disabled' : '' %>">
+              <a class="page-link" href="/admin/categories?page=<%= page - 1 %>">Previous</a>
+            </li>
+            <% for (let index = 1; index <= totalPages; index++) { %>
+              <li class="page-item <%= page === index ? 'active' : '' %>">
+                <a class="page-link" href="/admin/categories?page=<%= index %>"><%= index %></a>
+              </li>
+            <% } %>
+            <li class="page-item <%= page == totalPages ? 'disabled' : '' %>">
+              <a class="page-link" href="/admin/categories?page=<%= page + 1 %>">Next</a>
+            </li>
+          </ul>
+        </nav>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
